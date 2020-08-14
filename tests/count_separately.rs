@@ -1,6 +1,6 @@
-extern crate word_count;
+extern crate words_count;
 
-use word_count::*;
+use words_count::*;
 
 #[test]
 fn empty() {

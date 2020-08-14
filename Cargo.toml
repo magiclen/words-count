@@ -1,19 +1,19 @@
 [package]
-name = "word-count"
+name = "words-count"
 version = "0.1.0"
 authors = ["Magic Len <len@magiclen.org>"]
 edition = "2018"
-repository = "https://github.com/magiclen/word-count"
-homepage = "https://magiclen.org/word-count"
+repository = "https://github.com/magiclen/words-count"
+homepage = "https://magiclen.org/words-count"
 keywords = ["word", "letter", "count", "utf-8", "character"]
 categories = ["no-std", "text-processing"]
-description = "Count the words and characters, with or without whitespaces."
+description = "git remote add origin git@bitbucket.org:magiclen/words-count.git"
 readme = "README.md"
 license = "MIT"
 include = ["src/**/*", "Cargo.toml", "README.md", "LICENSE"]
 
 [badges.travis-ci]
-repository = "magiclen/word-count"
+repository = "magiclen/words-count"
 branch = "master"
 
 [dependencies]

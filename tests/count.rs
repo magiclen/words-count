@@ -1,11 +1,11 @@
-extern crate word_count;
+extern crate words_count;
 
-use word_count::*;
+use words_count::*;
 
 #[test]
 fn empty() {
     assert_eq!(
-        WordCount {
+        WordsCount {
             words: 0,
             characters: 0,
             whitespaces: 0,
@@ -18,7 +18,7 @@ fn empty() {
 #[test]
 fn whitespaces() {
     assert_eq!(
-        WordCount {
+        WordsCount {
             words: 0,
             characters: 6,
             whitespaces: 6,
@@ -31,7 +31,7 @@ fn whitespaces() {
 #[test]
 fn number() {
     assert_eq!(
-        WordCount {
+        WordsCount {
             words: 3,
             characters: 13,
             whitespaces: 2,
@@ -44,7 +44,7 @@ fn number() {
 #[test]
 fn english_alphabet() {
     assert_eq!(
-        WordCount {
+        WordsCount {
             words: 4,
             characters: 16,
             whitespaces: 3,
@@ -57,7 +57,7 @@ fn english_alphabet() {
 #[test]
 fn cjk_alphabet() {
     assert_eq!(
-        WordCount {
+        WordsCount {
             words: 23,
             characters: 24,
             whitespaces: 1,
@@ -70,7 +70,7 @@ fn cjk_alphabet() {
 #[test]
 fn english_cjk_mix() {
     assert_eq!(
-        WordCount {
+        WordsCount {
             words: 14,
             characters: 28,
             whitespaces: 0,
@@ -83,7 +83,7 @@ fn english_cjk_mix() {
 #[test]
 fn dashed_word() {
     assert_eq!(
-        WordCount {
+        WordsCount {
             words: 1,
             characters: 7,
             whitespaces: 0,
@@ -93,7 +93,7 @@ fn dashed_word() {
     );
 
     assert_eq!(
-        WordCount {
+        WordsCount {
             words: 2,
             characters: 8,
             whitespaces: 0,
@@ -103,7 +103,7 @@ fn dashed_word() {
     );
 
     assert_eq!(
-        WordCount {
+        WordsCount {
             words: 2,
             characters: 9,
             whitespaces: 0,
@@ -116,7 +116,7 @@ fn dashed_word() {
 #[test]
 fn dash_ended() {
     assert_eq!(
-        WordCount {
+        WordsCount {
             words: 1,
             characters: 4,
             whitespaces: 0,
@@ -126,7 +126,7 @@ fn dash_ended() {
     );
 
     assert_eq!(
-        WordCount {
+        WordsCount {
             words: 1,
             characters: 5,
             whitespaces: 1,
@@ -136,7 +136,7 @@ fn dash_ended() {
     );
 
     assert_eq!(
-        WordCount {
+        WordsCount {
             words: 1,
             characters: 5,
             whitespaces: 0,
@@ -146,7 +146,7 @@ fn dash_ended() {
     );
 
     assert_eq!(
-        WordCount {
+        WordsCount {
             words: 1,
             characters: 6,
             whitespaces: 1,
@@ -156,7 +156,7 @@ fn dash_ended() {
     );
 
     assert_eq!(
-        WordCount {
+        WordsCount {
             words: 2,
             characters: 6,
             whitespaces: 0,

@@ -1,27 +1,27 @@
 /*!
-# Word Count
+# Words Count
 
 Count the words and characters, with or without whitespaces.
 
 ## Examples
 
 ```rust
-extern crate word_count;
+extern crate words_count;
 
-use word_count::WordCount;
+use words_count::WordsCount;
 
-assert_eq!(WordCount {
+assert_eq!(WordsCount {
     words: 20,
     characters: 31,
     whitespaces: 2,
     cjk: 18,
-}, word_count::count("Rust是由 Mozilla 主導開發的通用、編譯型程式語言。"));
+}, words_count::count("Rust是由 Mozilla 主導開發的通用、編譯型程式語言。"));
 ```
 
 ```rust
-extern crate word_count;
+extern crate words_count;
 
-let result = word_count::count_separately("apple banana apple");
+let result = words_count::count_separately("apple banana apple");
 
 assert_eq!(2, result.len());
 assert_eq!(Some(&2), result.get("apple"));
@@ -39,7 +39,7 @@ use core::str::from_utf8_unchecked;
 use alloc::collections::BTreeMap;
 
 #[derive(Debug, Clone, Eq, PartialEq)]
-pub struct WordCount {
+pub struct WordsCount {
     pub words: usize,
     pub characters: usize,
     pub whitespaces: usize,
@@ -47,11 +47,11 @@ pub struct WordCount {
 }
 
 /// Count the words in the given string. In general, every non-CJK string of characters between two whitespaces is a word. Dashes (at least two dashes) are word limit, too. A CJK character is considered to be an independent word.
-pub fn count<S: AsRef<str>>(s: S) -> WordCount {
+pub fn count<S: AsRef<str>>(s: S) -> WordsCount {
     let mut in_word = false;
     let mut consecutive_dashes = 0usize;
 
-    let mut count = WordCount {
+    let mut count = WordsCount {
         words: 0,
         characters: 0,
         whitespaces: 0,
