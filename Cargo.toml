@@ -1,0 +1,20 @@
+[package]
+name = "words-count"
+version = "0.1.1"
+authors = ["Magic Len <len@magiclen.org>"]
+edition = "2018"
+repository = "https://github.com/magiclen/words-count"
+homepage = "https://magiclen.org/words-count"
+keywords = ["word", "letter", "count", "utf-8", "character"]
+categories = ["no-std", "text-processing"]
+description = "Count the words and characters, with or without whitespaces."
+readme = "README.md"
+license = "MIT"
+include = ["src/**/*", "Cargo.toml", "README.md", "LICENSE"]
+
+[badges.travis-ci]
+repository = "magiclen/words-count"
+branch = "master"
+
+[dependencies]
+unicode-blocks = "0.1"
