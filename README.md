@@ -1,7 +1,7 @@
 Words Count
 ====================
 
-[![Build Status](https://travis-ci.org/magiclen/words-count.svg?branch=master)](https://travis-ci.org/magiclen/words-count)
+[![CI](https://github.com/magiclen/words-count/actions/workflows/ci.yml/badge.svg)](https://github.com/magiclen/words-count/actions/workflows/ci.yml)
 
 Count the words and characters, with or without whitespaces.
 

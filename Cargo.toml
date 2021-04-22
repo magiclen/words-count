@@ -1,6 +1,6 @@
 [package]
 name = "words-count"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Magic Len <len@magiclen.org>"]
 edition = "2018"
 repository = "https://github.com/magiclen/words-count"
@@ -11,10 +11,6 @@ description = "Count the words and characters, with or without whitespaces."
 readme = "README.md"
 license = "MIT"
 include = ["src/**/*", "Cargo.toml", "README.md", "LICENSE"]
-
-[badges.travis-ci]
-repository = "magiclen/words-count"
-branch = "master"
 
 [dependencies]
 unicode-blocks = "0.1"
