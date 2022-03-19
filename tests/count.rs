@@ -1,5 +1,3 @@
-extern crate words_count;
-
 use words_count::*;
 
 #[test]

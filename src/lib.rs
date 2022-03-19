@@ -6,8 +6,6 @@ Count the words and characters, with or without whitespaces.
 ## Examples
 
 ```rust
-extern crate words_count;
-
 use words_count::WordsCount;
 
 assert_eq!(WordsCount {
@@ -19,8 +17,6 @@ assert_eq!(WordsCount {
 ```
 
 ```rust
-extern crate words_count;
-
 let result = words_count::count_separately("apple banana apple");
 
 assert_eq!(2, result.len());
@@ -31,8 +27,6 @@ assert_eq!(Some(&2), result.get("apple"));
 #![no_std]
 
 extern crate alloc;
-
-extern crate unicode_blocks;
 
 use core::str::from_utf8_unchecked;
 
