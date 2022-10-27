@@ -1,6 +1,7 @@
 name: CI-version
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - "v*"
