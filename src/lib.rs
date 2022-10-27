@@ -28,16 +28,59 @@ assert_eq!(Some(&2), result.get("apple"));
 
 extern crate alloc;
 
+use core::ops::{Add, AddAssign};
 use core::str::from_utf8_unchecked;
 
 use alloc::collections::BTreeMap;
 
-#[derive(Debug, Clone, Eq, PartialEq)]
+#[derive(Debug, Clone, Default, Eq, PartialEq)]
 pub struct WordsCount {
     pub words: usize,
     pub characters: usize,
     pub whitespaces: usize,
     pub cjk: usize,
+}
+
+/// A WordsCount equivalent to words_count::count("\n").
+///
+/// It is useful when processing files a line at a time.
+///
+/// ## Example
+///
+/// ```rust
+/// use words_count::{count, WordsCount, NEWLINE};
+///
+/// let mut total = WordsCount::default();
+/// for ln in std::io::stdin().lines() {
+///     total += count(ln.unwrap()) + NEWLINE;
+/// }
+/// println!("{total:?}");
+/// ```
+pub const NEWLINE: WordsCount = WordsCount {
+    words: 0,
+    characters: 1,
+    whitespaces: 1,
+    cjk: 0,
+};
+
+impl AddAssign for WordsCount {
+    fn add_assign(&mut self, other: Self) {
+        *self = Self {
+            words: self.words + other.words,
+            characters: self.characters + other.characters,
+            whitespaces: self.whitespaces + other.whitespaces,
+            cjk: self.cjk + other.cjk,
+        }
+    }
+}
+
+impl Add for WordsCount {
+    type Output = Self;
+
+    fn add(mut self, other: Self) -> Self {
+        self += other;
+        self
+    }
 }
 
 /// Count the words in the given string. In general, every non-CJK string of characters between two whitespaces is a word. Dashes (at least two dashes) are word limit, too. A CJK character is considered to be an independent word.
