@@ -64,6 +64,7 @@ pub const NEWLINE: WordsCount = WordsCount {
 };
 
 impl AddAssign for WordsCount {
+    #[inline]
     fn add_assign(&mut self, other: Self) {
         *self = Self {
             words: self.words + other.words,
@@ -77,6 +78,7 @@ impl AddAssign for WordsCount {
 impl Add for WordsCount {
     type Output = Self;
 
+    #[inline]
     fn add(mut self, other: Self) -> Self {
         self += other;
         self
