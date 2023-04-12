@@ -3,10 +3,7 @@
 
 Count the words and characters, with or without whitespaces.
 
-The algorithm is roughly aligned with the way Libreoffice is counting words.
-This means that it does not exactly match the
-[Unicode Text Segmentation](https://unicode.org/reports/tr29/#Word_Boundaries)
-standard.
+The algorithm is roughly aligned with the way LibreOffice is counting words. This means that it does not exactly match the [Unicode Text Segmentation](https://unicode.org/reports/tr29/#Word_Boundaries) standard.
 
 ## Examples
 
@@ -33,17 +30,18 @@ assert_eq!(Some(&2), result.get("apple"));
 
 extern crate alloc;
 
-use core::ops::{Add, AddAssign};
-use core::str::from_utf8_unchecked;
-
 use alloc::collections::BTreeMap;
+use core::{
+    ops::{Add, AddAssign},
+    str::from_utf8_unchecked,
+};
 
 #[derive(Debug, Clone, Default, Eq, PartialEq)]
 pub struct WordsCount {
-    pub words: usize,
-    pub characters: usize,
+    pub words:       usize,
+    pub characters:  usize,
     pub whitespaces: usize,
-    pub cjk: usize,
+    pub cjk:         usize,
 }
 
 /// A WordsCount equivalent to words_count::count("\n").
@@ -61,21 +59,19 @@ pub struct WordsCount {
 /// }
 /// println!("{total:?}");
 /// ```
-pub const NEWLINE: WordsCount = WordsCount {
-    words: 0,
-    characters: 1,
-    whitespaces: 1,
-    cjk: 0,
-};
+pub const NEWLINE: WordsCount =
+    WordsCount {
+        words: 0, characters: 1, whitespaces: 1, cjk: 0
+    };
 
 impl AddAssign for WordsCount {
     #[inline]
     fn add_assign(&mut self, other: Self) {
         *self = Self {
-            words: self.words + other.words,
-            characters: self.characters + other.characters,
+            words:       self.words + other.words,
+            characters:  self.characters + other.characters,
             whitespaces: self.whitespaces + other.whitespaces,
-            cjk: self.cjk + other.cjk,
+            cjk:         self.cjk + other.cjk,
         }
     }
 }
@@ -124,7 +120,7 @@ pub fn count<S: AsRef<str>>(s: S) -> WordsCount {
 
                         continue;
                     }
-                }
+                },
                 _ => {
                     consecutive_dashes = 0;
 
@@ -140,7 +136,7 @@ pub fn count<S: AsRef<str>>(s: S) -> WordsCount {
 
                         continue;
                     }
-                }
+                },
             }
 
             if !in_word {
@@ -204,7 +200,7 @@ pub fn count_separately<S: ?Sized + AsRef<str>>(s: &S) -> BTreeMap<&str, usize> 
                             p = pp + cl;
                         }
                     }
-                }
+                },
                 _ => {
                     if unicode_blocks::is_cjk(c) {
                         inc_or_insert(&mut count, unsafe {
@@ -226,7 +222,7 @@ pub fn count_separately<S: ?Sized + AsRef<str>>(s: &S) -> BTreeMap<&str, usize> 
                     }
 
                     consecutive_dashes = 0;
-                }
+                },
             }
 
             if !in_word {

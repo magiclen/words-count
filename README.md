@@ -5,10 +5,7 @@ Words Count
 
 Count the words and characters, with or without whitespaces.
 
-The algorithm is roughly aligned with the way Libreoffice is counting words.
-This means that it does not exactly match the
-[Unicode Text Segmentation](https://unicode.org/reports/tr29/#Word_Boundaries)
-standard.
+The algorithm is roughly aligned with the way LibreOffice is counting words. This means that it does not exactly match the [Unicode Text Segmentation](https://unicode.org/reports/tr29/#Word_Boundaries) standard.
 
 ## Examples
 

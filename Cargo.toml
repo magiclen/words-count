@@ -1,8 +1,9 @@
 [package]
 name = "words-count"
-version = "0.1.4"
+version = "0.1.5"
 authors = ["Magic Len <len@magiclen.org>"]
 edition = "2021"
+rust-version = "1.62"
 repository = "https://github.com/magiclen/words-count"
 homepage = "https://magiclen.org/words-count"
 keywords = ["word", "letter", "count", "utf-8", "character"]
