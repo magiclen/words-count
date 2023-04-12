@@ -95,12 +95,7 @@ pub fn count<S: AsRef<str>>(s: S) -> WordsCount {
     let mut in_word = false;
     let mut consecutive_dashes = 0usize;
 
-    let mut count = WordsCount {
-        words: 0,
-        characters: 0,
-        whitespaces: 0,
-        cjk: 0,
-    };
+    let mut count = WordsCount::default();
 
     for c in s.as_ref().chars() {
         count.characters += 1;
