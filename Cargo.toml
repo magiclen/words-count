@@ -9,7 +9,6 @@ homepage = "https://magiclen.org/words-count"
 keywords = ["word", "letter", "count", "utf-8", "character"]
 categories = ["no-std", "text-processing"]
 description = "Count the words and characters, with or without whitespaces."
-readme = "README.md"
 license = "MIT"
 include = ["src/**/*", "Cargo.toml", "README.md", "LICENSE"]
 
