@@ -11,7 +11,7 @@ The algorithm is roughly aligned with the way LibreOffice is counting words. Thi
 use words_count::WordsCount;
 
 assert_eq!(WordsCount {
-    words: 20,
+    words: 18,
     characters: 31,
     whitespaces: 2,
     cjk: 18,
@@ -35,6 +35,8 @@ use core::{
     ops::{Add, AddAssign},
     str::from_utf8_unchecked,
 };
+
+use unicode_blocks::{CJK_SYMBOLS_AND_PUNCTUATION, HALFWIDTH_AND_FULLWIDTH_FORMS};
 
 #[derive(Debug, Clone, Default, Eq, PartialEq)]
 pub struct WordsCount {
@@ -86,6 +88,11 @@ impl Add for WordsCount {
     }
 }
 
+/// Given a character, determine whether it is a non-word CJK character.
+pub fn is_cjk_other(c: char) -> bool {
+    return CJK_SYMBOLS_AND_PUNCTUATION.contains(c) || HALFWIDTH_AND_FULLWIDTH_FORMS.contains(c);
+}
+
 /// Count the words in the given string. In general, every non-CJK string of characters between two whitespaces is a word. Dashes (at least two dashes) are word limit, too. A CJK character is considered to be an independent word.
 pub fn count<S: AsRef<str>>(s: S) -> WordsCount {
     let mut in_word = false;
@@ -124,7 +131,11 @@ pub fn count<S: AsRef<str>>(s: S) -> WordsCount {
                 _ => {
                     consecutive_dashes = 0;
 
-                    if unicode_blocks::is_cjk(c) {
+                    if is_cjk_other(c) {
+                        count.cjk += 1;
+
+                        continue;
+                    } else if unicode_blocks::is_cjk(c) {
                         count.words += 1;
                         count.cjk += 1;
 

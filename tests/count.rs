@@ -44,7 +44,7 @@ fn english_alphabet() {
 fn cjk_alphabet() {
     assert_eq!(
         WordsCount {
-            words: 23, characters: 24, whitespaces: 1, cjk: 23
+            words: 21, characters: 24, whitespaces: 1, cjk: 23
         },
         count("涼風有訊 秋月無邊。虧我思嬌的情緒好比度日如年。")
     );
@@ -54,7 +54,7 @@ fn cjk_alphabet() {
 fn english_cjk_mix() {
     assert_eq!(
         WordsCount {
-            words: 14, characters: 28, whitespaces: 0, cjk: 12
+            words: 12, characters: 28, whitespaces: 0, cjk: 12
         },
         count("大家來meething吧，不然要錯過deadline了。")
     );
