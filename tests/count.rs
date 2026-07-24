@@ -121,3 +121,13 @@ fn dash_ended() {
         count("abc--中")
     );
 }
+
+#[test]
+fn leading_dashes() {
+    assert_eq!(
+        WordsCount {
+            words: 1, characters: 6, whitespaces: 0, cjk: 0
+        },
+        count("--flag")
+    );
+}

@@ -86,10 +86,11 @@ impl Add for WordsCount {
     }
 }
 
-/// Count the words in the given string. In general, every non-CJK string of characters between two whitespaces is a word. Dashes (at least two dashes) are word limit, too. A CJK character is considered to be an independent word.
+/// Count the words in the given string. In general, every non-CJK string of characters between two whitespaces is a word. Dashes (at least two of them) also act as a word delimiter. A CJK character is considered to be an independent word.
 pub fn count<S: AsRef<str>>(s: S) -> WordsCount {
     let mut in_word = false;
     let mut consecutive_dashes = 0usize;
+    let mut word_len = 0usize; // the number of characters accumulated in the current word
 
     let mut count = WordsCount::default();
 
@@ -102,23 +103,37 @@ pub fn count<S: AsRef<str>>(s: S) -> WordsCount {
             count.whitespaces += 1;
 
             if in_word {
-                count.words += 1;
+                if word_len > 0 {
+                    count.words += 1;
+                }
 
                 in_word = false;
             }
+
+            word_len = 0;
         } else {
             match c {
                 '-' => {
                     consecutive_dashes += 1;
 
-                    if consecutive_dashes > 1 && in_word {
-                        if consecutive_dashes == 2 {
-                            count.words += 1;
+                    if consecutive_dashes > 1 {
+                        if in_word {
+                            // Two dashes end a word, but only when there is real content before them.
+                            if consecutive_dashes == 2 && word_len >= 2 {
+                                count.words += 1;
+                            }
+
+                            in_word = false;
+                            word_len = 0;
+
+                            continue;
+                        } else {
+                            // A third or later dash starts a new word without being part of it.
+                            in_word = true;
+                            word_len = 0;
+
+                            continue;
                         }
-
-                        in_word = false;
-
-                        continue;
                     }
                 },
                 _ => {
@@ -129,30 +144,33 @@ pub fn count<S: AsRef<str>>(s: S) -> WordsCount {
                         count.cjk += 1;
 
                         if in_word {
-                            count.words += 1;
+                            if word_len > 0 {
+                                count.words += 1;
+                            }
 
                             in_word = false;
                         }
+
+                        word_len = 0;
 
                         continue;
                     }
                 },
             }
 
-            if !in_word {
-                in_word = true;
-            }
+            in_word = true;
+            word_len += 1;
         }
     }
 
-    if in_word {
+    if in_word && word_len > 0 {
         count.words += 1;
     }
 
     count
 }
 
-/// Count the words separately in the given string. In general, every non-CJK string of characters between two whitespaces is a word. Dashes (at least two dashes) are word limit, too. A CJK character is considered to be an independent word. Punctuations are not handled.
+/// Count the words separately in the given string. In general, every non-CJK string of characters between two whitespaces is a word. Dashes (at least two of them) also act as a word delimiter. A CJK character is considered to be an independent word. Punctuations are not handled.
 pub fn count_separately<S: ?Sized + AsRef<str>>(s: &S) -> BTreeMap<&str, usize> {
     let mut in_word = false;
     let mut consecutive_dashes = 0usize;
@@ -225,9 +243,7 @@ pub fn count_separately<S: ?Sized + AsRef<str>>(s: &S) -> BTreeMap<&str, usize> 
                 },
             }
 
-            if !in_word {
-                in_word = true;
-            }
+            in_word = true;
         }
 
         pp += cl;
@@ -242,9 +258,9 @@ pub fn count_separately<S: ?Sized + AsRef<str>>(s: &S) -> BTreeMap<&str, usize> 
 
 #[inline]
 fn inc_or_insert<'a>(map: &mut BTreeMap<&'a str, usize>, s: &'a str) {
-    if let Some(count) = map.get_mut(s) {
-        *count += 1;
-    } else {
-        map.insert(s, 1);
+    if s.is_empty() {
+        return;
     }
+
+    *map.entry(s).or_insert(0) += 1;
 }

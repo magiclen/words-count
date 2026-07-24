@@ -1,6 +1,6 @@
 [package]
 name = "words-count"
-version = "0.1.6"
+version = "0.1.7"
 authors = ["Magic Len <len@magiclen.org>"]
 edition = "2021"
 rust-version = "1.56"
@@ -13,4 +13,4 @@ license = "MIT"
 include = ["src/**/*", "Cargo.toml", "README.md", "LICENSE"]
 
 [dependencies]
-unicode-blocks = "0.1"
+unicode-blocks = "0.1.1"

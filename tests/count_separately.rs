@@ -100,3 +100,11 @@ fn dash_ended() {
     assert_eq!(Some(&1), result.get("abc"));
     assert_eq!(Some(&1), result.get("中"));
 }
+
+#[test]
+fn leading_dashes() {
+    let result = count_separately("--flag");
+
+    assert_eq!(1, result.len());
+    assert_eq!(Some(&1), result.get("flag"));
+}
